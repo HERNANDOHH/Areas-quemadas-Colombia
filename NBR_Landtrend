@@ -1,0 +1,85 @@
+Map.setCenter(-73.394, 2.457, 10);  
+Map.addLayer(colombia,{});
+//
+
+// define collection parameters
+var startYear = 2010;
+var endYear = 2019;
+var startDay = '01-01';
+var endDay = '12-01';
+var aoi = ee.Geometry.Point(-72.995858, 4.205803);
+var index = 'NBR';
+var maskThese = ['cloud', 'shadow', 'snow', 'water'];
+
+// define landtrendr parameters
+var runParams = { 
+  maxSegments:            6,
+  spikeThreshold:         0.9,
+  vertexCountOvershoot:   3,
+  preventOneYearRecovery: true,
+  recoveryThreshold:      0.25,
+  pvalThreshold:          0.05,
+  bestModelProportion:    0.75,
+  minObservationsNeeded:  6
+};
+
+// define change parameters
+var changeParams = {
+  delta:  'loss',
+  sort:   'greatest',
+  year:   {checked:true, start:2010, end:2018},
+  mag:    {checked:true, value:200,  operator:'>'},
+  dur:    {checked:true, value:4,    operator:'<'},
+  preval: {checked:true, value:300,  operator:'>'},
+  mmu:    {checked:true, value:11},
+};
+
+//##########################################################################################
+// END INPUTS
+//##########################################################################################
+
+// load the LandTrendr.js module
+var ltgee = require('users/emaprlab/public:Modules/LandTrendr.js'); 
+
+// add index to changeParams object
+changeParams.index = index;
+
+// run landtrendr
+var lt = ltgee.runLT(startYear, endYear, startDay, endDay, aoi, index, [], runParams, maskThese);
+
+// get the change map layers
+var changeImg = ltgee.getChangeMap(lt, changeParams).clip(colombia);
+
+// set visualization dictionaries
+var palette = ['#9400D3', '#4B0082', '#0000FF', '#00FF00', '#FFFF00', '#FF7F00', '#FF0000'];
+var yodVizParms = {
+  min: startYear,
+  max: endYear,
+  palette: palette
+};
+
+var magVizParms = {
+  min: 200,
+  max: 800,
+  palette: palette
+};
+
+
+Map.centerObject(colombia, 11);
+
+Map.addLayer(changeImg.select(['yod']), yodVizParms, 'cicatrices 2010 a 2019');
+
+// export change data to google drive
+var region = aoi.buffer(100000).bounds();
+var exportImg = changeImg.clip(colombia).unmask(0).short();
+Export.image.toDrive({
+  image: exportImg, 
+  description: 'lt-gee_incendios', 
+  folder: 'lt-gee_incendios', 
+  fileNamePrefix: 'lt-gee_incendios', 
+  region: region, 
+  scale: 30, 
+  crs: 'EPSG:5070', 
+  maxPixels: 1e13
+});
+
