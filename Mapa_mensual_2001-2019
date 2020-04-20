@@ -1,0 +1,1406 @@
+//Detección de Incendios en Colombia Derivados de MODIS
+//INSTITUTO GEOGRAFICO AGUSTÍN CODAZZI HERNANDO HERNANDEZ
+
+
+Map.setCenter(-73.107486, 3.452082, 6);  
+Map.addLayer(colombia,{},'Colombia',true,0.3);
+
+var help_text = ui.Label({
+  value: 'Esta aplicación permite identifcar zonas quemadas en Colombia derivadas del catálogo "MODIS-MCD64A1" con mapas mensuales entre 2001 y 2019. Seleccione el año de afectación y administre las capas resultado en "Layers". El procesamiento genera en "Task" mapas mensuales para ser descargados en Drive',
+  style: {position: 'bottom-center', width: '200px', whiteSpace: 'pre-wrap',fontSize: '10px'},
+});
+var help_cross = ui.Button({
+  label: 'X',
+  style: {position: 'top-right'},
+});
+var help_panel = ui.Panel({
+  layout: ui.Panel.Layout.absolute(),
+  widgets: [help_cross, help_text],
+  style: {position: 'bottom-center',width: '200px', height: '200px'},
+});
+Map.add(help_panel);
+help_cross.onClick( function() {help_panel.style().set('shown', false); });
+function show_help_panel(text) {
+  help_panel.style().set('shown', true);
+  help_text.setValue(text);
+}
+
+var ndwiVizenero = {palette: ['FF0000']};
+var ndwiVizfebrero = {palette: ['FFA500']};
+var ndwiVizmarzo = {palette: ['FFFF00']};
+var ndwiVizabril = {palette: ['8FE8EA']};
+var ndwiVizmayo = {palette: ['EE82EE']};
+var ndwiVizjunio = {palette: ['C4EA8F']};
+var ndwiVizjulio = {palette: ['0000FF']};
+var ndwiVizagosto = {palette: ['27a32c']};
+var ndwiVizseptiembre = {palette: ['800080']};
+var ndwiVizoctubre = {palette: ['9E7CF4']};
+var ndwiViznoviembre = {palette: ['00FF00']};
+var ndwiVizdiciembre = {palette: ['ffd1ad']};
+
+//Mcd64 area quemeda de 500m
+var datasetMCD64_01 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2001-01-01', '2001-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_02 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2002-01-01', '2002-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_03 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2003-01-01', '2003-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_04 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2004-01-01', '2004-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_05 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2005-01-01', '2005-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_06 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2006-01-01', '2006-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_07 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2007-01-01', '2007-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_08 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2008-01-01', '2008-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_09 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2009-01-01', '2009-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_10 = ee.ImageCollection('MODIS/006/MCD64A1')
+  .filterDate('2010-01-01', '2010-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_11 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2011-01-01', '2011-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_12 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2012-01-01', '2012-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_13 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2013-01-01', '2013-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_14 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2014-01-01', '2014-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_15 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2015-01-01', '2015-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_16 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2016-01-01', '2016-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_17 = ee.ImageCollection('MODIS/006/MCD64A1')
+  .filterDate('2017-01-01', '2017-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_18 = ee.ImageCollection('MODIS/006/MCD64A1')
+  .filterDate('2018-01-01', '2018-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_19 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2019-01-01', '2019-12-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+var datasetMCD64_20 = ee.ImageCollection('MODIS/006/MCD64A1')
+   .filterDate('2020-01-01', '2020-02-31')
+  .select('BurnDate')
+  .map(function(image) {
+      return image.clip(colombia);
+    });
+    
+////2001#################################################################################
+var ene_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_01 = datasetMCD64_01.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_01 = {palette: ['004C00']};
+//Map.addLayer(ene_01,ndwiVizenero,'enero_2001',false);Map.addLayer(feb_01,ndwiVizfebrero,'febrero_2001',false);Map.addLayer(mar_01,ndwiVizmarzo,'marzo_2001',false);
+//Map.addLayer(abr_01,ndwiVizabril,'abril_2001',false);Map.addLayer(may_01,ndwiViz_01,'mayo_2001',false);Map.addLayer(jun_01,ndwiVizjunio,'junio_2001',false);
+//Map.addLayer(jul_01,ndwiVizjulio,'julio_2001',false);Map.addLayer(ago_01,ndwiVizagosto,'agosto_2001',false);Map.addLayer(sep_01,ndwiViz_01,'septiembre_2001',false);
+//Map.addLayer(oct_01,ndwiViz_01,'octubre_2001',false);Map.addLayer(nov_01,ndwiViz_01,'noviembre_2001',false);Map.addLayer(dic_01,ndwiViz_01,'diciembre_2001',false);
+
+
+////2002#################################################################################
+var ene_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_02 = datasetMCD64_02.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_02 = {palette: ['004C00']};
+//Map.addLayer(ene_02,ndwiVizenero,'enero_2002',false);Map.addLayer(feb_02,ndwiVizfebrero,'febrero_2002',false);Map.addLayer(mar_02,ndwiVizmarzo,'marzo_2002',false);
+//Map.addLayer(abr_02,ndwiVizabril,'abril_2002',false);Map.addLayer(may_02,ndwiVizmayo,'mayo_2002',false);Map.addLayer(jun_02,ndwiVizjunio,'junio_2002',false);
+//Map.addLayer(jul_02,ndwiVizjulio,'julio_2002',false);Map.addLayer(ago_02,ndwiVizagosto,'agosto_2002',false);Map.addLayer(sep_02,ndwiVizseptiembre,'septiembre_2002',false);
+//Map.addLayer(oct_02,ndwiViz_02,'octubre_2002',false);Map.addLayer(nov_02,ndwiViznoviembre,'noviembre_2002',false);Map.addLayer(dic_02,ndwiVizdiciembre,'diciembre_2002',false);
+    
+////2003#################################################################################
+var ene_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_03 = datasetMCD64_03.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_03 = {palette: ['004C00']};
+//Map.addLayer(ene_03,ndwiVizenero,'enero_2003',false);Map.addLayer(feb_03,ndwiVizfebrero,'febrero_2003',false);Map.addLayer(mar_03,ndwiVizmarzo,'marzo_2003',false);
+//Map.addLayer(abr_03,ndwiVizabril,'abril_2003',false);Map.addLayer(may_03,ndwiVizmayo,'mayo_2003',false);Map.addLayer(jun_03,ndwiVizjunio,'junio_2003',false);
+//Map.addLayer(jul_03,ndwiVizjulio,'julio_2003',false);Map.addLayer(ago_03,ndwiVizagosto,'agosto_2003',false);Map.addLayer(sep_03,ndwiVizseptiembre,'septiembre_2003',false);
+//Map.addLayer(oct_03,ndwiViz_03,'octubre_2003',false);Map.addLayer(nov_03,ndwiViznoviembre,'noviembre_2003',false);Map.addLayer(dic_03,ndwiVizdiciembre,'diciembre_2003',false);
+    
+////2004#################################################################################
+var ene_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_04 = datasetMCD64_04.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_04 = {palette: ['004C00']};
+//Map.addLayer(ene_04,ndwiVizenero,'enero_2004',false);Map.addLayer(feb_04,ndwiVizfebrero,'febrero_2004',false);Map.addLayer(mar_04,ndwiVizmarzo,'marzo_2004',false);
+//Map.addLayer(abr_04,ndwiVizabril,'abril_2004',false);Map.addLayer(may_04,ndwiVizmayo,'mayo_2004',false);Map.addLayer(jun_04,ndwiVizjunio,'junio_2004',false);
+//Map.addLayer(jul_04,ndwiVizjulio,'julio_2004',false);Map.addLayer(ago_04,ndwiVizagosto,'agosto_2004',false);Map.addLayer(sep_04,ndwiVizseptiembre,'septiembre_2004',false);
+//Map.addLayer(oct_04,ndwiVizoctubre,'octubre_2004',false);Map.addLayer(nov_04,ndwiViznoviembre,'noviembre_2004',false);Map.addLayer(dic_04,ndwiVizdiciembre,'diciembre_2004',false);
+    
+////2005#################################################################################
+var ene_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_05 = datasetMCD64_05.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_05 = {palette: ['004C00']};
+//Map.addLayer(ene_05,ndwiVizenero,'enero_2005',false);Map.addLayer(feb_05,ndwiVizfebrero,'febrero_2005',false);Map.addLayer(mar_05,ndwiVizmarzo,'marzo_2005',false);
+//Map.addLayer(abr_05,ndwiVizabril,'abril_2005',false);Map.addLayer(may_05,ndwiVizmayo,'mayo_2005',false);Map.addLayer(jun_05,ndwiVizjunio,'junio_2005',false);
+//Map.addLayer(jul_05,ndwiVizjulio,'julio_2005',false);Map.addLayer(ago_05,ndwiVizagosto,'agosto_2005',false);Map.addLayer(sep_05,ndwiVizseptiembre,'septiembre_2005',false);
+//Map.addLayer(oct_05,ndwiVizoctubre,'octubre_2005',false);Map.addLayer(nov_05,ndwiViznoviembre,'noviembre_2005',false);Map.addLayer(dic_05,ndwiVizdiciembre,'diciembre_2005',false);
+
+////2006#################################################################################
+var ene_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_06 = datasetMCD64_06.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_06 = {palette: ['004C00']};
+//Map.addLayer(ene_06,ndwiVizenero,'enero_2006',false);Map.addLayer(feb_06,ndwiVizfebrero,'febrero_2006',false);Map.addLayer(mar_06,ndwiVizmarzo,'marzo_2006',false);
+//Map.addLayer(abr_06,ndwiVizabril,'abril_2006',false);Map.addLayer(may_06,ndwiVizmayo,'mayo_2006',false);Map.addLayer(jun_06,ndwiVizjunio,'junio_2006',false);
+//Map.addLayer(jul_06,ndwiVizjulio,'julio_2006',false);Map.addLayer(ago_06,ndwiVizagosto,'agosto_2006',false);Map.addLayer(sep_06,ndwiVizseptiembre,'septiembre_2006',false);
+//Map.addLayer(oct_06,ndwiVizoctubre,'octubre_2006',false);Map.addLayer(nov_06,ndwiViznoviembre,'noviembre_2006',false);Map.addLayer(dic_06,ndwiVizdiciembre,'diciembre_2006',false);
+
+////2007#################################################################################
+var ene_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_07 = datasetMCD64_07.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_07 = {palette: ['004C00']};
+//Map.addLayer(ene_07,ndwiVizenero,'enero_2007',false);Map.addLayer(feb_07,ndwiVizfebrero,'febrero_2007',false);Map.addLayer(mar_07,ndwiVizmarzo,'marzo_2007',false);
+//Map.addLayer(abr_07,ndwiVizabril,'abril_2007',false);Map.addLayer(may_07,ndwiVizmayo,'mayo_2007',false);Map.addLayer(jun_07,ndwiVizjunio,'junio_2007',false);
+//Map.addLayer(jul_07,ndwiVizjulio,'julio_2007',false);Map.addLayer(ago_07,ndwiVizagosto,'agosto_2007',false);Map.addLayer(sep_07,ndwiVizseptiembre,'septiembre_2007',false);
+//Map.addLayer(oct_07,ndwiVizoctubre,'octubre_2007',false);Map.addLayer(nov_07,ndwiViznoviembre,'noviembre_2007',false);Map.addLayer(dic_07,ndwiVizdiciembre,'diciembre_2007',false); 
+
+////2008#################################################################################
+var ene_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_08 = datasetMCD64_08.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_08 = {palette: ['004C00']};
+//Map.addLayer(ene_08,ndwiVizenero,'enero_2008',false);Map.addLayer(feb_08,ndwiVizfebrero,'febrero_2008',false);Map.addLayer(mar_08,ndwiVizmarzo,'marzo_2008',false);
+//Map.addLayer(abr_08,ndwiVizabril,'abril_2008',false);Map.addLayer(may_08,ndwiVizmayo,'mayo_2008',false);Map.addLayer(jun_08,ndwiVizjunio,'junio_2008',false);
+//Map.addLayer(jul_08,ndwiVizjulio,'julio_2008',false);Map.addLayer(ago_08,ndwiVizagosto,'agosto_2008',false);Map.addLayer(sep_08,ndwiVizseptiembre,'septiembre_2008',false);
+//Map.addLayer(oct_08,ndwiVizoctubre,'octubre_2008',false);Map.addLayer(nov_08,ndwiViznoviembre,'noviembre_2008',false);Map.addLayer(dic_08,ndwiVizdiciembre,'diciembre_2008',false); 
+
+////2009#################################################################################
+var ene_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_09 = datasetMCD64_09.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_09 = {palette: ['004C00']};
+//Map.addLayer(ene_09,ndwiVizenero,'enero_2009',false);Map.addLayer(feb_09,ndwiVizfebrero,'febrero_2009',false);Map.addLayer(mar_09,ndwiVizmarzo,'marzo_2009',false);
+//Map.addLayer(abr_09,ndwiVizabril,'abril_2009',false);Map.addLayer(may_09,ndwiVizmayo,'mayo_2009',false);Map.addLayer(jun_09,ndwiVizjunio,'junio_09',false);
+//Map.addLayer(jul_09,ndwiVizjulio,'julio_2009',false);Map.addLayer(ago_09,ndwiVizagosto,'agosto_2009',false);Map.addLayer(sep_09,ndwiVizseptiembre,'septiembre_2009',false);
+//Map.addLayer(oct_09,ndwiVizoctubre,'octubre_2009',false);Map.addLayer(nov_09,ndwiViznoviembre,'noviembre_2009',false);Map.addLayer(dic_09,ndwiVizdiciembre,'diciembre_2009',false); 
+   
+////2010#################################################################################
+var ene_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_10 = datasetMCD64_10.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_10 = {palette: ['004C00']};
+//Map.addLayer(ene_10,ndwiVizenero,'enero_2010',false);Map.addLayer(feb_10,ndwiVizfebrero,'febrero_2010',false);Map.addLayer(mar_10,ndwiVizmarzo,'marzo_2010',false);
+//Map.addLayer(abr_10,ndwiVizabril,'abril_2010',false);Map.addLayer(may_10,ndwiVizmayo,'mayo_2010',false);Map.addLayer(jun_10,ndwiVizjunio,'junio_2010',false);
+//Map.addLayer(jul_10,ndwiVizjulio,'julio_2010',false);Map.addLayer(ago_10,ndwiVizagosto,'agosto_2010',false);Map.addLayer(sep_10,ndwiVizseptiembre,'septiembre_2010',false);
+//Map.addLayer(oct_10,ndwiVizoctubre,'octubre_2010',false);Map.addLayer(nov_10,ndwiViznoviembre,'noviembre_2010',false);Map.addLayer(dic_10,ndwiVizdiciembre,'diciembre_2010',false);     
+
+////2011#################################################################################
+var ene_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_11 = datasetMCD64_11.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_11 = {palette: ['004C00']};
+//Map.addLayer(ene_11,ndwiVizenero,'enero_2011',false);Map.addLayer(feb_11,ndwiVizfebrero,'febrero_2011',false);Map.addLayer(mar_11,ndwiVizmarzo,'marzo_2011',false);
+//Map.addLayer(abr_11,ndwiVizabril,'abril_2011',false);Map.addLayer(may_11,ndwiVizmayo,'mayo_2011',false);Map.addLayer(jun_11,ndwiVizjunio,'junio_2011',false);
+//Map.addLayer(jul_11,ndwiVizjulio,'julio_2011',false);Map.addLayer(ago_11,ndwiVizagosto,'agosto_2011',false);Map.addLayer(sep_11,ndwiVizseptiembre,'septiembre_2011',false);
+//Map.addLayer(oct_11,ndwiVizoctubre,'octubre_2011',false);Map.addLayer(nov_11,ndwiViznoviembre,'noviembre_2011',false);Map.addLayer(dic_11,ndwiVizdiciembre,'diciembre_2011',false);    
+
+/////2012_########################################################################################
+var ene_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_12 = datasetMCD64_12.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_12 = {palette: ['004C00']};
+//Map.addLayer(ene_12,ndwiVizenero,'enero_2012',false);Map.addLayer(feb_12,ndwiVizfebrero,'febrero_2012',false);Map.addLayer(mar_12,ndwiVizmarzo,'marzo_2012',false);
+//Map.addLayer(abr_12,ndwiVizabril,'abril_2012',false);Map.addLayer(may_12,ndwiVizmayo,'mayo_2012',false);Map.addLayer(jun_12,ndwiVizjunio,'junio_2012',false);
+//Map.addLayer(jul_12,ndwiVizjulio,'julio_2012',false);Map.addLayer(ago_12,ndwiVizagosto,'agosto_2012',false);Map.addLayer(sep_12,ndwiVizseptiembre,'septiembre_2012',false);
+//Map.addLayer(oct_12,ndwiVizoctubre,'octubre_2012',false);Map.addLayer(nov_12,ndwiViznoviembre,'noviembre_2012',false);Map.addLayer(dic_12,ndwiVizdiciembre,'diciembre_2012',false);    
+
+/////2013_########################################################################################
+var ene_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_13 = datasetMCD64_13.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+//Map.addLayer(ene_13,ndwiVizenero,'enero_2013',false);Map.addLayer(feb_13,ndwiVizfebrero,'febrero_2013',false);Map.addLayer(mar_13,ndwiVizmarzo,'marzo_2013',false);
+//Map.addLayer(abr_13,ndwiVizabril,'abril_2013',false);Map.addLayer(may_13,ndwiVizmayo,'mayo_2013',false);Map.addLayer(jun_13,ndwiVizjunio,'junio_2013',false);
+//Map.addLayer(jul_13,ndwiVizjulio,'julio_2013',false);Map.addLayer(ago_13,ndwiVizagosto,'agosto_2013',false);Map.addLayer(sep_13,ndwiVizseptiembre,'septiembre_2013',false);
+//Map.addLayer(oct_13,ndwiVizoctubre,'octubre_2013',false);Map.addLayer(nov_13,ndwiViznoviembre,'noviembre_2013',false);Map.addLayer(dic_13,ndwiVizdiciembre,'diciembre_2013',false);
+    
+/////2014_########################################################################################
+var ene_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_14 = datasetMCD64_14.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+//Map.addLayer(ene_14,ndwiVizenero,'enero_2014',false);Map.addLayer(feb_14,ndwiVizfebrero,'febrero_2014',false);Map.addLayer(mar_14,ndwiVizmarzo,'marzo_2014',false);
+//Map.addLayer(abr_14,ndwiVizabril,'abril_2014',false);Map.addLayer(may_14,ndwiVizmayo,'mayo_2014',false);Map.addLayer(jun_14,ndwiVizjunio,'junio_2014',false);
+//Map.addLayer(jul_14,ndwiVizjulio,'julio_2014',false);Map.addLayer(ago_14,ndwiVizagosto,'agosto_2014',false);Map.addLayer(sep_14,ndwiVizseptiembre,'septiembre_2014',false);
+//Map.addLayer(oct_14,ndwiVizoctubre,'octubre_2014',false);Map.addLayer(nov_14,ndwiViznoviembre,'noviembre_2014',false);Map.addLayer(dic_14,ndwiVizdiciembre,'diciembre_2014',false);
+
+/////2015_########################################################################################
+var ene_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_15 = datasetMCD64_15.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_15 = {palette: ['004C00']};
+//Map.addLayer(ene_15,ndwiVizenero,'enero_2015',false);Map.addLayer(feb_15,ndwiVizfebrero,'febrero_2015',false);Map.addLayer(mar_15,ndwiVizmarzo,'marzo_2015',false);
+//Map.addLayer(abr_15,ndwiVizabril,'abril_2015',false);Map.addLayer(may_15,ndwiVizmayo,'mayo_2015',false);Map.addLayer(jun_15,ndwiVizjunio,'junio_2015',false);
+//Map.addLayer(jul_15,ndwiVizjulio,'julio_2015',false);Map.addLayer(ago_15,ndwiVizagosto,'agosto_2015',false);Map.addLayer(sep_15,ndwiVizseptiembre,'septiembre_2015',false);
+//Map.addLayer(oct_15,ndwiVizoctubre,'octubre_2015',false);Map.addLayer(nov_15,ndwiViznoviembre,'noviembre_2015',false);Map.addLayer(dic_15,ndwiVizdiciembre,'diciembre_2015',false);
+
+/////2016_########################################################################################
+var ene_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_16 = datasetMCD64_16.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_16 = {palette: ['004C00']};
+//Map.addLayer(ene_16,ndwiVizenero,'enero_2016',false);Map.addLayer(feb_16,ndwiVizfebrero,'febrero_2016',false);Map.addLayer(mar_16,ndwiVizmarzo,'marzo_2016',false);
+//Map.addLayer(abr_16,ndwiVizabril,'abril_2016',false);Map.addLayer(may_16,ndwiVizmayo,'mayo_2016',false);Map.addLayer(jun_16,ndwiVizjunio,'junio_2016',false);
+//Map.addLayer(jul_16,ndwiVizjulio,'julio_2016',false);Map.addLayer(ago_16,ndwiVizagosto,'agosto_2016',false);Map.addLayer(sep_16,ndwiVizseptiembre,'septiembre_2016',false);
+//Map.addLayer(oct_16,ndwiVizoctubre,'octubre_2016',false);Map.addLayer(nov_16,ndwiViznoviembre,'noviembre_2016',false);Map.addLayer(dic_16,ndwiVizdiciembre,'diciembre_2016',false);
+
+///2017_########################################################################################
+var ene_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_17 = datasetMCD64_17.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_17 = {palette: ['004C00']};
+//Map.addLayer(ene_17,ndwiVizenero,'enero_2017',false);Map.addLayer(feb_17,ndwiVizfebrero,'febrero_2017',false);Map.addLayer(mar_17,ndwiVizmarzo,'marzo_2017',false);
+//Map.addLayer(abr_17,ndwiVizabril,'abril_2017',false);Map.addLayer(may_17,ndwiVizmayo,'mayo_2017',false);Map.addLayer(jun_17,ndwiVizjunio,'junio_2017',false);
+//Map.addLayer(jul_17,ndwiVizjulio,'julio_2017',false);Map.addLayer(ago_17,ndwiVizagosto,'agosto_2017',false);Map.addLayer(sep_17,ndwiVizseptiembre,'septiembre_2017',false);
+//Map.addLayer(oct_17,ndwiVizoctubre,'octubre_2017',false);Map.addLayer(nov_17,ndwiViznoviembre,'noviembre_2017',false);Map.addLayer(dic_17,ndwiVizdiciembre,'diciembre_2017',false);
+
+///2018_########################################################################################
+var ene_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_18 = datasetMCD64_18.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+var ndwiViz_18 = {palette: ['004C00']};
+//Map.addLayer(ene_18,ndwiVizenero,'enero_2018',false);Map.addLayer(feb_18,ndwiVizfebrero,'febrero_2018',false);Map.addLayer(mar_18,ndwiVizmarzo,'marzo_2018',false);
+//Map.addLayer(abr_18,ndwiVizabril,'abril_2018',false);Map.addLayer(may_18,ndwiVizmayo,'mayo_2018',false);Map.addLayer(jun_18,ndwiVizjunio,'junio_2018',false);
+//Map.addLayer(jul_18,ndwiVizjulio,'julio_2018',false);Map.addLayer(ago_18,ndwiVizagosto,'agosto_2018',false);Map.addLayer(sep_18,ndwiVizseptiembre,'septiembre_2018',false);
+//Map.addLayer(oct_18,ndwiVizoctubre,'octubre_2018',false);Map.addLayer(nov_18,ndwiViznoviembre,'noviembre_2018',false);Map.addLayer(dic_18,ndwiVizdiciembre,'diciembre_2018',false);
+
+///2019_########################################################################################
+var ene_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(1, 31)).reduce(ee.Reducer.sum());
+var feb_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(32, 59)).reduce(ee.Reducer.sum());
+var mar_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(60, 90)).reduce(ee.Reducer.sum());
+var abr_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(91, 120)).reduce(ee.Reducer.sum());
+var may_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(121, 151)).reduce(ee.Reducer.sum());
+var jun_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(152, 181)).reduce(ee.Reducer.sum());
+var jul_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(182, 212)).reduce(ee.Reducer.sum());
+var ago_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(213, 243)).reduce(ee.Reducer.sum());
+var sep_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(244, 273)).reduce(ee.Reducer.sum());
+var oct_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(274, 304)).reduce(ee.Reducer.sum());
+var nov_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(305, 334)).reduce(ee.Reducer.sum());
+var dic_19 = datasetMCD64_19.filter(ee.Filter.dayOfYear(335, 365)).reduce(ee.Reducer.sum());
+
+//Map.addLayer(ene_19,ndwiVizenero,'enero_2019',false);Map.addLayer(feb_19,ndwiVizfebrero,'febrero_2019',false);Map.addLayer(mar_19,ndwiVizmarzo,'marzo_2019',false);
+//Map.addLayer(abr_19,ndwiVizabril,'abril_2019',false);Map.addLayer(may_19,ndwiVizmayo,'mayo_2019',false);Map.addLayer(jun_19,ndwiVizjunio,'junio_2019',false);
+//Map.addLayer(jul_19,ndwiVizjulio,'julio_2019',false);Map.addLayer(ago_19,ndwiVizagosto,'agosto_2019',false);Map.addLayer(sep_19,ndwiVizseptiembre,'septiembre_2019',false);
+//Map.addLayer(oct_19,ndwiVizoctubre,'octubre_2019',false);Map.addLayer(nov_19,ndwiViznoviembre,'noviembre_2019',false);Map.addLayer(dic_19,ndwiVizdiciembre,'diciembre_2019',false);
+
+// Reduce the region. The region parameter is the Feature geometry.
+//var enerd_19 =ene_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var febrerod_19 = feb_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var marzod_19 = mar_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var abrild_19 = abr_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var mayod_19 = may_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var juniod_19 = jun_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var juliod_19 = jul_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var agostod_19 = ago_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var septiembred_19 = sep_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var octubred_19 = oct_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var noviembred_19 = nov_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values(); 
+//var diciembred_19 = dic_19.reduceRegion({reducer: ee.Reducer.count(),geometry: colombia, scale: 500, maxPixels: 1e9}).values();
+
+
+/////////#########################################################################################
+
+//var meses_año = {'enero_2019': ene_19, 'febrero_2019': feb_19, 'marzo_2019': mar_19,'abril_2019': abr_19,'mayo_2019': may_19,'junio_2019':jun_19,'julio_2019': jul_19, 'agosto_2019': ago_19, 'septiembre_2019': sep_19, 'octubre_2019': oct_19, 'noviembre_2019': nov_19,'diciembre_2019':dic_19};
+var meses_año = {'2018': 2018,'2019': 2019};
+
+//Calculate the area in hectares Sampling Grid
+//var area = ene_19.multiply(ee.Image.pixelArea()).divide(10000);
+
+//Calculate the area within the mangrove buffer region
+//var reducerBuffer_ene = area.reduceRegion({
+//  reducer: ee.Reducer.sum(),
+//  maxPixels: 50000000,
+//  scale: 500,
+//  geometry: colombia
+//});
+//print ('Total Area (ha) enero', reducerBuffer_ene);
+
+// Create the panel for the legend items.
+var legend = ui.Panel({
+  style: {
+    position: 'bottom-left',
+    padding: '8px 15px'
+  }
+});
+
+// Create and add the legend title.
+var legendTitle = ui.Label({
+  value: 'Mapa mensual de zonas quemadas' + 
+  'en Colombia',
+  style: {
+    fontWeight: 'bold',
+    fontSize: '12px',
+    margin: '0 0 4px 0',
+    padding: '0'
+  }
+});
+
+var subtitle = ui.Label('Promedios mensuales de área quemada por pixel a 500m',
+  {margin: '0 0 6px 0',fontSize: '10px',color: 'gray'});
+var subtitle2 = ui.Label('Datos derivados de las plataformas MODIS Aqua y Terra',
+  {margin: '0 0 6px 0',fontSize: '10px',color: 'gray'});
+var subtitle3 = ui.Label('Proyecto COMIXTA-ARGENTINA, IGAC-CIAF',
+  {margin: '0 0 6px 0',fontSize: '10px',color: 'gray'})
+legend.add(legendTitle).add(subtitle).add(subtitle2).add(subtitle3);
+
+//select year
+var selectYear = ui.Select({
+  items: Object.keys(meses_año),
+});
+//selectYear.setPlaceholder('1. Seleccionar Año...');
+//legend.add(ui.Label('Selecciona el año de la afectación')).add(selectYear); 
+
+var mapbutton = ui.Label('Selecciona un año');
+legend.add(mapbutton);
+legend.add(ui.Button("2019",fireMap2019)); 
+legend.add(ui.Button("2018",fireMap2018));
+legend.add(ui.Button("2017",fireMap2017));
+legend.add(ui.Button("2016",fireMap2016));
+legend.add(ui.Button("2015",fireMap2015));
+//legend.add(ui.Button("2014",fireMap2014));
+//legend.add(ui.Button("2013",fireMap2013));
+//legend.add(ui.Button("2012",fireMap2012));
+//legend.add(ui.Button("2011",fireMap2011));
+//legend.add(ui.Button("2010",fireMap2010));
+//legend.add(ui.Button("2009",fireMap2009));
+//legend.add(ui.Button("2008",fireMap2008));
+//legend.add(ui.Button("2007",fireMap2007));
+//legend.add(ui.Button("2006",fireMap2006));
+//legend.add(ui.Button("2005",fireMap2005));
+//legend.add(ui.Button("2004",fireMap2004));
+//legend.add(ui.Button("2003",fireMap2003));
+//legend.add(ui.Button("2002",fireMap2002));
+//legend.add(ui.Button("2001",fireMap2001));
+
+
+//function fireMap(){
+// var mesyaño = selectYear.getValue();
+// var newfc = ee.Algorithms.If((mesyaño=='enero_2019'),Map.addLayer(ene_19, 
+//    {palette:ndwiVizenero}, 'enero_2019'), ee.Algorithms.If ((mesyaño=='febrero_2019'),Map.addLayer(feb_19, 
+//    {palette:ndwiVizfebrero}, 'febrero_2019'), ee.Algorithms.If ((mesyaño=='marzo_2019'),Map.addLayer(mar_19, 
+//    {palette:ndwiVizmarzo}, 'marzo_2019'), null)));
+//}
+
+function fireMap2019(){
+var mesyaño = (ee.Number.parse(selectYear.getValue()));
+var newfc = ee.Algorithms.If((mesyaño==2019), 
+   Map.addLayer(ene_19,ndwiVizenero, 'enero_2019') +
+   Map.addLayer(feb_19,ndwiVizfebrero, 'febrero_2019') +
+   Map.addLayer(mar_19,ndwiVizmarzo, 'marzo_2019') +
+   Map.addLayer(abr_19,ndwiVizabril, 'abril_2019') +
+   Map.addLayer(may_19,ndwiVizmayo, 'mayo_2019')  +
+   Map.addLayer(jun_19,ndwiVizjunio, 'junio_2019')  +
+   Map.addLayer(jul_19,ndwiVizjulio, 'julio_2019')  +
+   Map.addLayer(ago_19,ndwiVizagosto, 'agosto_2019') +
+   Map.addLayer(sep_19,ndwiVizseptiembre, 'septiembre_2019') +
+   Map.addLayer(oct_19,ndwiVizoctubre, 'octubre_2019') +
+   Map.addLayer(nov_19,ndwiViznoviembre, 'noviembre_2019') +
+   Map.addLayer(dic_19,ndwiVizdiciembre, 'diciembre_2019') 
+    ,null);
+var imgtypene = ene_19.toDouble();
+Export.image.toDrive({
+  image: imgtypene,
+  description: 'ene_19',
+  fileNamePrefix: 'ene_19',
+  scale: 500,
+  region: colombia
+});
+var imgtypefeb = feb_19.toDouble();
+Export.image.toDrive({
+  image: imgtypefeb,
+  description: 'feb_19',
+  fileNamePrefix: 'feb_19',
+  scale: 500,
+  region: colombia
+});
+var imgtypemar = mar_19.toDouble();
+Export.image.toDrive({
+  image: imgtypemar,
+  description: 'mar_19',
+  fileNamePrefix: 'mar_19',
+  scale: 500,
+  region: colombia
+});
+var imgtypeabr = abr_19.toDouble();
+Export.image.toDrive({
+  image: imgtypeabr,
+  description: 'abr_19',
+  fileNamePrefix: 'abr_19',
+  scale: 500,
+  region: colombia
+});
+var imgtypemay = may_19.toDouble();
+Export.image.toDrive({
+  image: imgtypemay,
+  description: 'may_19',
+  fileNamePrefix: 'may_19',
+  scale: 500,
+  region: colombia
+});
+var imgtypejun = jun_19.toDouble();
+Export.image.toDrive({
+  image: imgtypejun,
+  description: 'jun_19',
+  fileNamePrefix: 'jun_19',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypejul = jul_19.toDouble();
+Export.image.toDrive({
+  image: imgtypejul,
+  description: 'jul_19',
+  fileNamePrefix: 'jul_19',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypeago = ago_19.toDouble();
+Export.image.toDrive({
+  image: imgtypeago,
+  description: 'ago_19',
+  fileNamePrefix: 'ago_19',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypesep = sep_19.toDouble();
+Export.image.toDrive({
+  image: imgtypesep,
+  description: 'sep_19',
+  fileNamePrefix: 'sep_19',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypeoct = oct_19.toDouble();
+Export.image.toDrive({
+  image: imgtypeoct,
+  description: 'oct_19',
+  fileNamePrefix: 'oct_19',
+  scale: 500,
+  region: colombia
+});
+
+var imgtypenov = nov_19.toDouble();
+Export.image.toDrive({
+  image: imgtypenov,
+  description: 'nov_19',
+  fileNamePrefix: 'nov_19',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypedic = dic_19.toDouble();
+Export.image.toDrive({
+  image: imgtypedic,
+  description: 'dic_19',
+  fileNamePrefix: 'dic_19',
+  scale: 500,
+  region: colombia
+}); 
+
+}    
+
+function fireMap2018(){
+ var mesyaño2 = (ee.Number.parse(selectYear.getValue()));
+ var newfc2 = ee.Algorithms.If((mesyaño2==2018), 
+   Map.addLayer(ene_18,ndwiVizenero, 'enero_2018') +
+   Map.addLayer(feb_18,ndwiVizfebrero, 'febrero_2018') +
+   Map.addLayer(mar_18,ndwiVizmarzo, 'marzo_2018') +
+   Map.addLayer(abr_18,ndwiVizabril, 'abril_2018') +
+   Map.addLayer(may_18,ndwiVizmayo, 'mayo_2018')  +
+   Map.addLayer(jun_18,ndwiVizjunio, 'junio_2018')  +
+   Map.addLayer(jul_18,ndwiVizjulio, 'julio_2018')  +
+   Map.addLayer(ago_18,ndwiVizagosto, 'agosto_2018') +
+   Map.addLayer(sep_18,ndwiVizseptiembre, 'septiembre_2018') +
+   Map.addLayer(oct_18,ndwiVizoctubre, 'octubre_2018') +
+   Map.addLayer(nov_18,ndwiViznoviembre, 'noviembre_2018') +
+   Map.addLayer(dic_18,ndwiVizdiciembre, 'diciembre_2018') 
+    ,null);
+var imgtypene18 = ene_18.toDouble();
+Export.image.toDrive({
+  image: imgtypene18,
+  description: 'ene_18',
+  fileNamePrefix: 'ene_18',
+  scale: 500,
+  region: colombia
+});
+var imgtypefeb18 = feb_18.toDouble();
+Export.image.toDrive({
+  image: imgtypefeb18,
+  description: 'feb_18',
+  fileNamePrefix: 'feb_18',
+  scale: 500,
+  region: colombia
+});
+var imgtypemar18 = mar_18.toDouble();
+Export.image.toDrive({
+  image: imgtypemar18,
+  description: 'mar_18',
+  fileNamePrefix: 'mar_18',
+  scale: 500,
+  region: colombia
+});
+var imgtypeabr18 = abr_18.toDouble();
+Export.image.toDrive({
+  image: imgtypeabr18,
+  description: 'abr_18',
+  fileNamePrefix: 'abr_18',
+  scale: 500,
+  region: colombia
+});
+var imgtypemay18 = may_18.toDouble();
+Export.image.toDrive({
+  image: imgtypemay18,
+  description: 'may_18',
+  fileNamePrefix: 'may_18',
+  scale: 500,
+  region: colombia
+});
+var imgtypejun18 = jun_18.toDouble();
+Export.image.toDrive({
+  image: imgtypejun18,
+  description: 'jun_18',
+  fileNamePrefix: 'jun_18',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypejul18 = jul_18.toDouble();
+Export.image.toDrive({
+  image: imgtypejul18,
+  description: 'jul_18',
+  fileNamePrefix: 'jul_18',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypeago18 = ago_18.toDouble();
+Export.image.toDrive({
+  image: imgtypeago18,
+  description: 'ago_18',
+  fileNamePrefix: 'ago_18',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypesep18 = sep_18.toDouble();
+Export.image.toDrive({
+  image: imgtypesep18,
+  description: 'sep_18',
+  fileNamePrefix: 'sep_18',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypeoct18 = oct_18.toDouble();
+Export.image.toDrive({
+  image: imgtypeoct18,
+  description: 'oct_18',
+  fileNamePrefix: 'oct_18',
+  scale: 500,
+  region: colombia
+});
+
+var imgtypenov18 = nov_18.toDouble();
+Export.image.toDrive({
+  image: imgtypenov18,
+  description: 'nov_18',
+  fileNamePrefix: 'nov_18',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypedic18 = dic_18.toDouble();
+Export.image.toDrive({
+  image: imgtypedic18,
+  description: 'dic_18',
+  fileNamePrefix: 'dic_18',
+  scale: 500,
+  region: colombia
+}); 
+}    
+
+function fireMap2017(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc3 = ee.Algorithms.If((mesyaño=='2017'), 
+   Map.addLayer(ene_17,ndwiVizenero, 'enero_2017') +
+   Map.addLayer(feb_17,ndwiVizfebrero, 'febrero_2017') +
+   Map.addLayer(mar_17,ndwiVizmarzo, 'marzo_2017') +
+   Map.addLayer(abr_17,ndwiVizabril, 'abril_2017') +
+   Map.addLayer(may_17,ndwiVizmayo, 'mayo_2017')  +
+   Map.addLayer(jun_17,ndwiVizjunio, 'junio_2017')  +
+   Map.addLayer(jul_17,ndwiVizjulio, 'julio_2017')  +
+   Map.addLayer(ago_17,ndwiVizagosto, 'agosto_2017') +
+   Map.addLayer(sep_17,ndwiVizseptiembre, 'septiembre_2017') +
+   Map.addLayer(oct_17,ndwiVizoctubre, 'octubre_2017') +
+   Map.addLayer(nov_17,ndwiViznoviembre, 'noviembre_2017') +
+   Map.addLayer(dic_17,ndwiVizdiciembre, 'diciembre_2017')
+   , null);
+
+var imgtypene17 = ene_17.toDouble();
+Export.image.toDrive({
+  image: imgtypene17,
+  description: 'ene_17',
+  fileNamePrefix: 'ene_17',
+  scale: 500,
+  region: colombia
+});
+var imgtypefeb17 = feb_17.toDouble();
+Export.image.toDrive({
+  image: imgtypefeb17,
+  description: 'feb_17',
+  fileNamePrefix: 'feb_17',
+  scale: 500,
+  region: colombia
+});
+var imgtypemar17 = mar_17.toDouble();
+Export.image.toDrive({
+  image: imgtypemar17,
+  description: 'mar_17',
+  fileNamePrefix: 'mar_17',
+  scale: 500,
+  region: colombia
+});
+var imgtypeabr17 = abr_17.toDouble();
+Export.image.toDrive({
+  image: imgtypeabr17,
+  description: 'abr_17',
+  fileNamePrefix: 'abr_17',
+  scale: 500,
+  region: colombia
+});
+var imgtypemay17 = may_17.toDouble();
+Export.image.toDrive({
+  image: imgtypemay17,
+  description: 'may_17',
+  fileNamePrefix: 'may_17',
+  scale: 500,
+  region: colombia
+});
+var imgtypejun17 = jun_17.toDouble();
+Export.image.toDrive({
+  image: imgtypejun17,
+  description: 'jun_17',
+  fileNamePrefix: 'jun_17',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypejul17 = jul_17.toDouble();
+Export.image.toDrive({
+  image: imgtypejul17,
+  description: 'jul_17',
+  fileNamePrefix: 'jul_17',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypeago17 = ago_17.toDouble();
+Export.image.toDrive({
+  image: imgtypeago17,
+  description: 'ago_17',
+  fileNamePrefix: 'ago_17',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypesep17 = sep_17.toDouble();
+Export.image.toDrive({
+  image: imgtypesep17,
+  description: 'sep_17',
+  fileNamePrefix: 'sep_17',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypeoct17 = oct_17.toDouble();
+Export.image.toDrive({
+  image: imgtypeoct17,
+  description: 'oct_17',
+  fileNamePrefix: 'oct_17',
+  scale: 500,
+  region: colombia
+});
+
+var imgtypenov17 = nov_17.toDouble();
+Export.image.toDrive({
+  image: imgtypenov17,
+  description: 'nov_17',
+  fileNamePrefix: 'nov_17',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypedic17 = dic_17.toDouble();
+Export.image.toDrive({
+  image: imgtypedic17,
+  description: 'dic_17',
+  fileNamePrefix: 'dic_17',
+  scale: 500,
+  region: colombia
+}); 
+
+}
+
+function fireMap2016(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc3 = ee.Algorithms.If((mesyaño=='2016'), 
+   Map.addLayer(ene_16,ndwiVizenero, 'enero_2016') +
+   Map.addLayer(feb_16,ndwiVizfebrero, 'febrero_2016') +
+   Map.addLayer(mar_16,ndwiVizmarzo, 'marzo_2016') +
+   Map.addLayer(abr_16,ndwiVizabril, 'abril_2016') +
+   Map.addLayer(may_16,ndwiVizmayo, 'mayo_2016')  +
+   Map.addLayer(jun_16,ndwiVizjunio, 'junio_2016')  +
+   Map.addLayer(jul_16,ndwiVizjulio, 'julio_2016')  +
+   Map.addLayer(ago_16,ndwiVizagosto, 'agosto_2016') +
+   Map.addLayer(sep_16,ndwiVizseptiembre, 'septiembre_2016') +
+   Map.addLayer(oct_16,ndwiVizoctubre, 'octubre_2016') +
+   Map.addLayer(nov_16,ndwiViznoviembre, 'noviembre_2016') +
+   Map.addLayer(dic_16,ndwiVizdiciembre, 'diciembre_2016')
+   , null);
+
+var imgtypene16 = ene_16.toDouble();
+Export.image.toDrive({
+  image: imgtypene16,
+  description: 'ene_16',
+  fileNamePrefix: 'ene_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypefeb16 = feb_16.toDouble();
+Export.image.toDrive({
+  image: imgtypefeb16,
+  description: 'feb_16',
+  fileNamePrefix: 'feb_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypemar16 = mar_16.toDouble();
+Export.image.toDrive({
+  image: imgtypemar16,
+  description: 'mar_16',
+  fileNamePrefix: 'mar_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypeabr16 = abr_16.toDouble();
+Export.image.toDrive({
+  image: imgtypeabr16,
+  description: 'abr_16',
+  fileNamePrefix: 'abr_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypemay16 = may_16.toDouble();
+Export.image.toDrive({
+  image: imgtypemay16,
+  description: 'may_16',
+  fileNamePrefix: 'may_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypejun16 = jun_16.toDouble();
+Export.image.toDrive({
+  image: imgtypejun16,
+  description: 'jun_16',
+  fileNamePrefix: 'jun_16',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypejul16 = jul_16.toDouble();
+Export.image.toDrive({
+  image: imgtypejul16,
+  description: 'jul_16',
+  fileNamePrefix: 'jul_16',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypeago16 = ago_16.toDouble();
+Export.image.toDrive({
+  image: imgtypeago16,
+  description: 'ago_16',
+  fileNamePrefix: 'ago_16',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypesep16 = sep_16.toDouble();
+Export.image.toDrive({
+  image: imgtypesep16,
+  description: 'sep_16',
+  fileNamePrefix: 'sep_16',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypeoct16 = oct_16.toDouble();
+Export.image.toDrive({
+  image: imgtypeoct16,
+  description: 'oct_16',
+  fileNamePrefix: 'oct_16',
+  scale: 500,
+  region: colombia
+});
+
+var imgtypenov16 = nov_16.toDouble();
+Export.image.toDrive({
+  image: imgtypenov16,
+  description: 'nov_16',
+  fileNamePrefix: 'nov_16',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypedic16 = dic_16.toDouble();
+Export.image.toDrive({
+  image: imgtypedic16,
+  description: 'dic_16',
+  fileNamePrefix: 'dic_16',
+  scale: 500,
+  region: colombia
+}); 
+
+
+}
+
+function fireMap2015(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc4 = ee.Algorithms.If((mesyaño=='2015'), 
+   Map.addLayer(ene_15,ndwiVizenero, 'enero_2015') +
+   Map.addLayer(feb_15,ndwiVizfebrero, 'febrero_2015') +
+   Map.addLayer(mar_15,ndwiVizmarzo, 'marzo_2015') +
+   Map.addLayer(abr_15,ndwiVizabril, 'abril_2015') +
+   Map.addLayer(may_15,ndwiVizmayo, 'mayo_2015')  +
+   Map.addLayer(jun_15,ndwiVizjunio, 'junio_2015')  +
+   Map.addLayer(jul_15,ndwiVizjulio, 'julio_2015')  +
+   Map.addLayer(ago_15,ndwiVizagosto, 'agosto_2015') +
+   Map.addLayer(sep_15,ndwiVizseptiembre, 'septiembre_2015') +
+   Map.addLayer(oct_15,ndwiVizoctubre, 'octubre_2015') +
+   Map.addLayer(nov_15,ndwiViznoviembre, 'noviembre_2015') +
+   Map.addLayer(dic_15,ndwiVizdiciembre, 'diciembre_2015')
+   , null);
+
+
+var imgtypene15 = ene_15.toDouble();
+Export.image.toDrive({
+  image: imgtypene15,
+  description: 'ene_15',
+  fileNamePrefix: 'ene_15',
+  scale: 500,
+  region: colombia
+});
+var imgtypefeb15 = feb_15.toDouble();
+Export.image.toDrive({
+  image: imgtypefeb15,
+  description: 'feb_15',
+  fileNamePrefix: 'feb_15',
+  scale: 500,
+  region: colombia
+});
+var imgtypemar15 = mar_15.toDouble();
+Export.image.toDrive({
+  image: imgtypemar15,
+  description: 'mar_15',
+  fileNamePrefix: 'mar_15',
+  scale: 500,
+  region: colombia
+});
+var imgtypeabr15 = abr_15.toDouble();
+Export.image.toDrive({
+  image: imgtypeabr15,
+  description: 'abr_15',
+  fileNamePrefix: 'abr_15',
+  scale: 500,
+  region: colombia
+});
+var imgtypemay15 = may_15.toDouble();
+Export.image.toDrive({
+  image: imgtypemay16,
+  description: 'may_16',
+  fileNamePrefix: 'may_16',
+  scale: 500,
+  region: colombia
+});
+var imgtypejun15 = jun_15.toDouble();
+Export.image.toDrive({
+  image: imgtypejun15,
+  description: 'jun_15',
+  fileNamePrefix: 'jun_15',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypejul15 = jul_15.toDouble();
+Export.image.toDrive({
+  image: imgtypejul15,
+  description: 'jul_15',
+  fileNamePrefix: 'jul_15',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypeago15 = ago_15.toDouble();
+Export.image.toDrive({
+  image: imgtypeago15,
+  description: 'ago_15',
+  fileNamePrefix: 'ago_15',
+  scale: 500,
+  region: colombia
+});   
+
+var imgtypesep15 = sep_15.toDouble();
+Export.image.toDrive({
+  image: imgtypesep15,
+  description: 'sep_15',
+  fileNamePrefix: 'sep_15',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypeoct15 = oct_15.toDouble();
+Export.image.toDrive({
+  image: imgtypeoct15,
+  description: 'oct_15',
+  fileNamePrefix: 'oct_15',
+  scale: 500,
+  region: colombia
+});
+
+var imgtypenov15 = nov_15.toDouble();
+Export.image.toDrive({
+  image: imgtypenov15,
+  description: 'nov_15',
+  fileNamePrefix: 'nov_15',
+  scale: 500,
+  region: colombia
+});  
+
+var imgtypedic15 = dic_15.toDouble();
+Export.image.toDrive({
+  image: imgtypedic15,
+  description: 'dic_15',
+  fileNamePrefix: 'dic_15',
+  scale: 500,
+  region: colombia
+}); 
+
+}
+
+function fireMap2014(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc5 = ee.Algorithms.If((mesyaño=='2014'), 
+   Map.addLayer(ene_14,ndwiVizenero, 'enero_2014') +
+   Map.addLayer(feb_14,ndwiVizfebrero, 'febrero_2014') +
+   Map.addLayer(mar_14,ndwiVizmarzo, 'marzo_2014') +
+   Map.addLayer(abr_14,ndwiVizabril, 'abril_2014') +
+   Map.addLayer(may_14,ndwiVizmayo, 'mayo_2014')  +
+   Map.addLayer(jun_14,ndwiVizjunio, 'junio_2014')  +
+   Map.addLayer(jul_14,ndwiVizjulio, 'julio_2014')  +
+   Map.addLayer(ago_14,ndwiVizagosto, 'agosto_2014') +
+   Map.addLayer(sep_14,ndwiVizseptiembre, 'septiembre_2014') +
+   Map.addLayer(oct_14,ndwiVizoctubre, 'octubre_2014') +
+   Map.addLayer(nov_14,ndwiViznoviembre, 'noviembre_2014') +
+   Map.addLayer(dic_14,ndwiVizdiciembre, 'diciembre_2014')
+   , null);
+}
+
+function fireMap2013(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc6 = ee.Algorithms.If((mesyaño=='2013'), 
+   Map.addLayer(ene_13,ndwiVizenero, 'enero_2013') +
+   Map.addLayer(feb_13,ndwiVizfebrero, 'febrero_2013') +
+   Map.addLayer(mar_13,ndwiVizmarzo, 'marzo_2013') +
+   Map.addLayer(abr_13,ndwiVizabril, 'abril_2013') +
+   Map.addLayer(may_13,ndwiVizmayo, 'mayo_2013')  +
+   Map.addLayer(jun_13,ndwiVizjunio, 'junio_2013')  +
+   Map.addLayer(jul_13,ndwiVizjulio, 'julio_2013')  +
+   Map.addLayer(ago_13,ndwiVizagosto, 'agosto_2013') +
+   Map.addLayer(sep_13,ndwiVizseptiembre, 'septiembre_2013') +
+   Map.addLayer(oct_13,ndwiVizoctubre, 'octubre_2013') +
+   Map.addLayer(nov_13,ndwiViznoviembre, 'noviembre_2013') +
+   Map.addLayer(dic_13,ndwiVizdiciembre, 'diciembre_2013')
+   , null);
+}
+
+function fireMap2012(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc7 = ee.Algorithms.If((mesyaño=='2012'), 
+   Map.addLayer(ene_12,ndwiVizenero, 'enero_2012') +
+   Map.addLayer(feb_12,ndwiVizfebrero, 'febrero_2012') +
+   Map.addLayer(mar_12,ndwiVizmarzo, 'marzo_2012') +
+   Map.addLayer(abr_12,ndwiVizabril, 'abril_2012') +
+   Map.addLayer(may_12,ndwiVizmayo, 'mayo_2012')  +
+   Map.addLayer(jun_12,ndwiVizjunio, 'junio_2012')  +
+   Map.addLayer(jul_12,ndwiVizjulio, 'julio_2012')  +
+   Map.addLayer(ago_12,ndwiVizagosto, 'agosto_2012') +
+   Map.addLayer(sep_12,ndwiVizseptiembre, 'septiembre_2012') +
+   Map.addLayer(oct_12,ndwiVizoctubre, 'octubre_2012') +
+   Map.addLayer(nov_12,ndwiViznoviembre, 'noviembre_2012') +
+   Map.addLayer(dic_12,ndwiVizdiciembre, 'diciembre_2012')
+   , null);
+}
+
+function fireMap2012(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc7 = ee.Algorithms.If((mesyaño=='2012'), 
+   Map.addLayer(ene_12,ndwiVizenero, 'enero_2012') +
+   Map.addLayer(feb_12,ndwiVizfebrero, 'febrero_2012') +
+   Map.addLayer(mar_12,ndwiVizmarzo, 'marzo_2012') +
+   Map.addLayer(abr_12,ndwiVizabril, 'abril_2012') +
+   Map.addLayer(may_12,ndwiVizmayo, 'mayo_2012')  +
+   Map.addLayer(jun_12,ndwiVizjunio, 'junio_2012')  +
+   Map.addLayer(jul_12,ndwiVizjulio, 'julio_2012')  +
+   Map.addLayer(ago_12,ndwiVizagosto, 'agosto_2012') +
+   Map.addLayer(sep_12,ndwiVizseptiembre, 'septiembre_2012') +
+   Map.addLayer(oct_12,ndwiVizoctubre, 'octubre_2012') +
+   Map.addLayer(nov_12,ndwiViznoviembre, 'noviembre_2012') +
+   Map.addLayer(dic_12,ndwiVizdiciembre, 'diciembre_2012')
+   , null);
+}
+
+function fireMap2011(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc8 = ee.Algorithms.If((mesyaño=='2011'), 
+   Map.addLayer(ene_11,ndwiVizenero, 'enero_2011') +
+   Map.addLayer(feb_11,ndwiVizfebrero, 'febrero_2011') +
+   Map.addLayer(mar_11,ndwiVizmarzo, 'marzo_2011') +
+   Map.addLayer(abr_11,ndwiVizabril, 'abril_2011') +
+   Map.addLayer(may_11,ndwiVizmayo, 'mayo_2011')  +
+   Map.addLayer(jun_11,ndwiVizjunio, 'junio_2011')  +
+   Map.addLayer(jul_11,ndwiVizjulio, 'julio_2011')  +
+   Map.addLayer(ago_11,ndwiVizagosto, 'agosto_2011') +
+   Map.addLayer(sep_11,ndwiVizseptiembre, 'septiembre_2011') +
+   Map.addLayer(oct_11,ndwiVizoctubre, 'octubre_2011') +
+   Map.addLayer(nov_11,ndwiViznoviembre, 'noviembre_2011') +
+   Map.addLayer(dic_11,ndwiVizdiciembre, 'diciembre_2011')
+   , null);
+}
+
+function fireMap2010(){
+var mesyaño = (ee.Number.parse(selectYear.getValue())); 
+var newfc8 = ee.Algorithms.If((mesyaño=='2010'), 
+   Map.addLayer(ene_10,ndwiVizenero, 'enero_2010') +
+   Map.addLayer(feb_10,ndwiVizfebrero, 'febrero_2010') +
+   Map.addLayer(mar_10,ndwiVizmarzo, 'marzo_2010') +
+   Map.addLayer(abr_10,ndwiVizabril, 'abril_2010') +
+   Map.addLayer(may_10,ndwiVizmayo, 'mayo_2010')  +
+   Map.addLayer(jun_10,ndwiVizjunio, 'junio_2010')  +
+   Map.addLayer(jul_10,ndwiVizjulio, 'julio_2010')  +
+   Map.addLayer(ago_10,ndwiVizagosto, 'agosto_2010') +
+   Map.addLayer(sep_10,ndwiVizseptiembre, 'septiembre_2010') +
+   Map.addLayer(oct_10,ndwiVizoctubre, 'octubre_2010') +
+   Map.addLayer(nov_10,ndwiViznoviembre, 'noviembre_2010') +
+   Map.addLayer(dic_10,ndwiVizdiciembre, 'diciembre_2010')
+   , null);
+}
+
+
+var makeRow = function(color, name) {
+  // Create the label that is actually the colored box.
+  var colorBox = ui.Label({
+    style: {
+      backgroundColor: '#' + color,
+      // Use padding to give the box height and width.
+      padding: '6px',
+      margin: '0 0 4px 0'
+    }
+  });
+
+  // Create the label filled with the description text.
+  var description = ui.Label({
+    value: name,
+    style: {margin: '0 0 4px 4px',fontSize: '10px'}
+  });
+
+  return ui.Panel({
+    widgets: [colorBox, description],
+    layout: ui.Panel.Layout.Flow('horizontal')
+  });
+};
+
+
+var palette1 = ['FF0000', //ENERO
+               'FFA500', //FEBRERO
+               'FFFF00', //MARZO
+               '8FE8EA', //ABRIL
+               'EE82EE', //MAYO
+               'C4EA8F', //JUNIO
+               '0000FF', //JULIO
+               '27a32c', //AGOSTO
+               '800080', //SEPTIEMBRE
+               '9E7CF4', //OCTUBRE
+               '00FF00', //NOVIEMBRE
+               'ffd1ad', //DICIEMBRE
+              ];
+
+  var names1 = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  for (var i = 0; i < names1.length; i++) {
+    legend.add(makeRow(palette1[i], names1[i]));
+  }
+//});
+
+// Add the legend to the map.
+Map.add(legend);
+
+
+//var area = feb_19.multiply(ee.Image.pixelArea()).divide(10000);
+
+//var reducerBuffer_feb = area.reduceRegion({
+//  reducer: ee.Reducer.sum(),
+//  maxPixels: 50000000,
+//  scale: 500,
+//  geometry: colombia
+//});
+//print ('Total Area (ha) febrero', reducerBuffer_feb);
+
+//var area = mar_19.multiply(ee.Image.pixelArea()).divide(10000);
+
+
+//print ('Total Area (ha) junio', reducerBuffer);
+
+
+
+
+
