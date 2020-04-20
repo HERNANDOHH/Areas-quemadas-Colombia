@@ -1,0 +1,330 @@
+
+Map.setCenter(-73.107486, 3.452082, 6);  
+Map.addLayer(colombia,{},'Colombia',true,0.3);
+
+//////////######### EVALUACION ANUAL INCENDIOS COLOMBIA LANDSAT 7 Y 8 2010 A 2019. 
+
+var l7 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR');
+      
+var visParams = {
+  bands: ['B4_median', 'B3_median', 'B2_median'],
+  min: 0,
+  max: 3000,
+  gamma: 1.4,
+};
+
+function maskL8sr(image) {
+  // Bits 3 and 5 are cloud shadow and cloud, respectively.
+  var cloudShadowBitMask = (1 << 3);
+  var cloudsBitMask = (1 << 5);
+  // Get the pixel QA band.
+  var qa = image.select('pixel_qa');
+  // Both flags should be set to zero, indicating clear conditions.
+  var mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0)
+                 .and(qa.bitwiseAnd(cloudsBitMask).eq(0));
+  return image.updateMask(mask);
+}
+
+var region = colombia.geometry();
+
+///////////////////////////Funcion para corregir bandeamiento
+var kernelSize = 10;
+var kernel = ee.Kernel.square(kernelSize * 30, 'meters', false);
+
+var GapFill = function(image) {
+  var start = image.date().advance(-1, 'year');
+  var end = image.date().advance(1, 'year');
+  var fill = l7.filterDate(start, end).median();
+  var regress = fill.addBands(image); 
+  regress = regress.select(regress.bandNames().sort());
+  var fit = regress.reduceNeighborhood(ee.Reducer.linearFit().forEach(image.bandNames()), kernel, null, false);
+  var offset = fit.select('.*_offset');
+  var scale = fit.select('.*_scale');
+  var scaled = fill.multiply(scale).add(offset);
+  return image.unmask(scaled, true);
+};
+
+
+
+
+//Colecciones de imagenes previas incendios 
+
+var pre2010 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2009-08-01', '2009-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+
+var pre2011 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2010-08-01', '2010-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pre2012 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2011-08-01', '2011-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pre2013 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2012-08-01', '2012-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pre2014 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2013-08-01', '2013-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2015 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2014-08-01', '2014-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2015 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2014-08-01', '2014-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2016 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2015-08-01', '2015-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2017 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2016-08-01', '2016-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2018 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2017-08-01', '2017-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pre2019 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2018-08-01', '2018-12-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+
+
+//Colección de imagenes Posterores incendios 
+
+var pos2010 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2010-01-01', '2010-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pos2011 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2011-01-01', '2011-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pos2012 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2012-01-01', '2012-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+var pos2013 = ee.ImageCollection('LANDSAT/LE07/C01/T1_SR')
+                  .filterDate('2013-01-01', '2013-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr)
+                  .map(GapFill);
+
+
+var pos2014 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2014-01-01', '2014-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pos2015 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2015-01-01', '2015-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pos2016 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2016-01-01', '2016-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+var pos2016 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2016-01-01', '2016-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+                  
+var pos2017 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2017-01-01', '2017-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+
+var pos2018 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2018-01-01', '2018-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+                  
+
+var pos2019 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+                  .filterDate('2019-01-01', '2019-04-30')
+                  .filterMetadata('CLOUD_COVER', 'less_than', 20)
+                  .filterBounds(colombia)
+                  .map(maskL8sr);
+
+
+
+///################################################################
+
+// Generación imagen pre incendio con reducción de mediana SR
+
+var pref2010 = pre2010.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2010 = pref2010.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2011 = pre2011.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2011 = pref2011.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2012 = pre2012.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2012 = pref2012.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2013 = pre2013.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2013 = pref2013.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2014 = pre2014.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2014 = pref2014.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2015 = pre2015.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2015 = pref2015.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2016 = pre2016.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2016 = pref2016.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2017 = pre2017.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2017 = pref2017.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2018 = pre2018.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2018 = pref2018.normalizedDifference(['B4_median', 'B7_median']);
+
+var pref2019 = pre2019.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpre2019 = pref2019.normalizedDifference(['B4_median', 'B7_median']);
+
+
+// Generación imagen post incendio con reducción de mediana SR
+
+var postf2010 = pos2010.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2010 = postf2010.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2011 = pos2011.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2011 = postf2011.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2012 = pos2012.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2012 = postf2012.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2013 = pos2013.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2013 = postf2013.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2014 = pos2014.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2014 = postf2014.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2015 = pos2015.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2015 = postf2015.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2016 = pos2016.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2016 = postf2016.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2017 = pos2017.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2017 = postf2017.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2018 = pos2018.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2018 = postf2018.normalizedDifference(['B4_median', 'B7_median']);
+
+var postf2019 = pos2019.reduce(ee.Reducer.median()).clip(colombia);
+var NBRpos2019 = postf2019.normalizedDifference(['B4_median', 'B7_median']);
+
+//Indice dNBR2017
+var dNBR2010 = NBRpre2010.subtract(NBRpos2010).rename('dNBR');
+
+var dNBR2011 = NBRpre2011.subtract(NBRpos2012).rename('dNBR');
+
+var dNBR2012 = NBRpre2012.subtract(NBRpos2012).rename('dNBR');
+
+var dNBR2013 = NBRpre2013.subtract(NBRpos2013).rename('dNBR');
+
+var dNBR2014 = NBRpre2014.subtract(NBRpos2014).rename('dNBR');
+
+var dNBR2015 = NBRpre2015.subtract(NBRpos2015).rename('dNBR');
+
+var dNBR2016 = NBRpre2016.subtract(NBRpos2016).rename('dNBR');
+
+var dNBR2017 = NBRpre2017.subtract(NBRpos2017).rename('dNBR');
+
+var dNBR2018 = NBRpre2018.subtract(NBRpos2018).rename('dNBR');
+
+var dNBR2019 = NBRpre2019.subtract(NBRpos2019).rename('dNBR');
+//Map.addLayer (dNBR2016, {}, "dNBR", false);
+
+
+
+///Clasificar por rango de valores
+var palette = ['fb0000','fb6212','f5ff36','24fe4f'];
+var thresholds = ee.Image([0.1, 0.269, 0.439, 0.659]);
+
+var dNBRClases2010 = dNBR2010.lt(thresholds).reduce('sum');
+var dNBRClases2011 = dNBR2011.lt(thresholds).reduce('sum');
+var dNBRClases2012 = dNBR2012.lt(thresholds).reduce('sum');
+var dNBRClases2013 = dNBR2013.lt(thresholds).reduce('sum');
+var dNBRClases2014 = dNBR2014.lt(thresholds).reduce('sum');
+var dNBRClases2015 = dNBR2015.lt(thresholds).reduce('sum');
+var dNBRClases2016 = dNBR2016.lt(thresholds).reduce('sum');
+var dNBRClases2017 = dNBR2017.lt(thresholds).reduce('sum');
+var dNBRClases2018 = dNBR2018.lt(thresholds).reduce('sum');
+var dNBRClases2019 = dNBR2019.lt(thresholds).reduce('sum');
+
+Map.addLayer(dNBRClases2010, {min: 0, max: 4, palette: palette}, 'dNBR 2010');
+Map.addLayer(dNBRClases2011, {min: 0, max: 4, palette: palette}, 'dNBR 2011');
+Map.addLayer(dNBRClases2012, {min: 0, max: 4, palette: palette}, 'dNBR 2012');
+Map.addLayer(dNBRClases2013, {min: 0, max: 4, palette: palette}, 'dNBR 2013');
+Map.addLayer(dNBRClases2014, {min: 0, max: 4, palette: palette}, 'dNBR 2014');
+Map.addLayer(dNBRClases2015, {min: 0, max: 4, palette: palette}, 'dNBR 2015');
+Map.addLayer(dNBRClases2016, {min: 0, max: 4, palette: palette}, 'dNBR 2016');
+Map.addLayer(dNBRClases2017, {min: 0, max: 4, palette: palette}, 'dNBR 2017');
+Map.addLayer(dNBRClases2018, {min: 0, max: 4, palette: palette}, 'dNBR 2018');
+Map.addLayer(dNBRClases2019, {min: 0, max: 4, palette: palette}, 'dNBR 2019');
+
+Export.image.toDrive({
+  image: dNBRClases2010, 
+  description: 'dNBRClases2010', 
+  folder: 'dNBRClases2010', 
+  fileNamePrefix: 'dNBRClases2010', 
+  region: region, 
+  scale: 30, 
+  crs: 'EPSG:3116', 
+});
+
+
+
