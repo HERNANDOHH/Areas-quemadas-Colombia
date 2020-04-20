@@ -1,6 +1,6 @@
 //Detección de Incendios en Colombia Derivados de MODIS
 //INSTITUTO GEOGRAFICO AGUSTÍN CODAZZI- GIT Investitación desarrollo e Innovación
-//MSc. HERNANDO HERNANDEZ Abril del 2020
+//MSc. HERNANDO HERNANDEZ, Msc. Carlos Franco y Ing. Nelson Nieto. Abril del 2020
 //Para ver el app ingrese al enclace https://nandopando.users.earthengine.app/view/mapa-zonas-quemadas-colombia
 //Dibuje un polígono desde la ventana del mapa y de nombre de la varialbe que representa el área "cambie el nombre de 'colombia' en todo el script".
 //Cambie las coordenadas del a su zona de trabajo y defina la escala en la linea 9. 
